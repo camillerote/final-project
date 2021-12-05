@@ -16,12 +16,19 @@
 /* GLOBAL VARIABLES */
 
 /* DATA STRUCTURES */
+typedef struct Event {
+	char *time;
+	char *date;
+	char *location;
+	char *description;
+} event;
+
 typedef struct agenda {
-	char events[MAX_EVENTS][SIZE];
-	int numOfEvents;
+        event arrayEvent[MAX_EVENTS];
+
+        int numOfEvents;
 } dailyAgenda;
-
-
+	
 /* FUNCTIONS */
 
 /* function to find day*/ 

@@ -29,21 +29,82 @@ void printDay(int dayInt) {
 	if( dayInt==6 ) printf("Saturday \n --------\n");
 
 }
+void printEvent(event name) {
+	printf("Time:%s\nDate:%s\nLocation:%s\nDescription:%s\n", name.time, name.date, name.location, name.description);
+	printf("This works");
+}
 
 int runAgendaMaker(void) {
-	dailyAgenda Agendas[7]; // each index here is day of week (0 is sunday)/
+	 dailyAgenda Agendas[7]; // each index here is day of week (0 is sunday)/
+        int forever = 1;
+
+        // Initialize the numOfEvents to make sure its set to 0/
+        // so ervetythign else works/
+        for(int i = 0; i<7; i++) {
+                Agendas[i].numOfEvents = 0;
+        }          
+	printf("Welcome to Agenda Maker,/n press 1 create event,/n 2 view event,\n  press 3 to exit.");
+	int selection;
+	
+	scanf("%d", &selection);
+	char day[20];
+	
+	switch (selection){
+		case 1:
+		case 2: 
+			printf("What day are you interested in. \n");
+			scanf("%s", day);
+			break;
+		case 3:
+			return 0;
+		
+	}
+	printf("got here");
+	int currentday = getIntegerOfDay(day);
+	dailyAgenda currentAgenda = Agendas[currentday]; 
+	printf("Press 1 to add event,\n 2 to view events,\n 3 to delete event.\n");
+	switch (selection){
+		case 1:{
+			event newEvent;
+			char time[SIZE];
+			char date[SIZE];
+			char location[SIZE];
+			char description[SIZE];
+			printf("Time:\n");
+			scanf("%s", time);
+			printf("Date:\n");
+			scanf("%s", date);
+			printf("Loaction:\n");
+			scanf("%s", location);
+			printf("Description:\n");
+			scanf("%[^\n]%*c", description);
+			}
+			break;
+ 
+		 case 2:
+			
+			for(int i=0; i<currentAgenda.numOfEvents; i++) {
+				printEvent(currentAgenda.arrayEvent[i]);
+			} 
+	}
+	       
+		
+			 
+			
+	
+	/*dailyAgenda Agendas[7]; // each index here is day of week (0 is sunday)/
 	int forever = 1;
 
 	// Initialize the numOfEvents to make sure its set to 0/
 	// so ervetythign else works/
-	for(int i = 0; i<7; i++) {
-		Agendas[i].numOfEvents = 0;
-	}
+	//for(int i = 0; i<7; i++) {
+	//	Agendas[i].numOfEvents = 0;
+	//}
 
-	while(forever) {
+	//while(forever) {
 		printf("\e[0;33m \n> \e[0;37m");
-		char *userInput = (char *) malloc(SIZE * sizeof(char));;
-		char *token;
+		char *userInput = (char *) malloc(SIZE * sizeof(char));
+		char *token
 		const char *s = " ";
 		char *name = malloc(SIZE * sizeof(char));
 
@@ -52,19 +113,21 @@ int runAgendaMaker(void) {
 		token = (char *) strtok(userInput, s);
         while (token != NULL) {
 
-		/* get the first token */
+
+
+		* get the first token */
 
 		/* strcmp returns 0 if the two inputs are a match */
 
         /* HELP */
         /* CMD)monday]buy food */
-		if( strcmp(token, "help") == 0 ) {
+	/*	if( strcmp(token, "help") == 0 ) {
  			printf("add [day] [event] , Add event to day\n");
 			printf("show [day/'all'] , show all the events for selected day, or for 'all'");
 			printf("edit [day] [eventNumber] [task], edit a day's event indexed by eventNumber "); 	
 	    }
 
-        /* ADD */
+       */ /* ADD *//*
 	    if( strcmp(token, "add") == 0 ) {
 	    	char *day = strtok(NULL, s); // grab second arg
 	    	char *task = strtok(NULL, s); // grab 3rd arg (but its a single word, woops)
@@ -92,13 +155,13 @@ int runAgendaMaker(void) {
     	    printf("New task: %s\n", Agendas[dayInt].events[numOfEvents]);
         }
     
-        /* SHOW */
+        *//* SHOW 
 	    if( strcmp(token, "show") == 0){
 	    	char *day = strtok(NULL, s);
 	    	int dayInt = getIntegerOfDay(day); // encodes our day to a number, use for indexing
 
-            /* ALL */
-    		if( strcmp(day, "all") == 0){
+             ALL */
+    	/*	if( strcmp(day, "all") == 0){
 
     			// Print out every single day and all their events
     			for(int i=0; i<7; i++){ // Day loop
@@ -124,4 +187,5 @@ int runAgendaMaker(void) {
     token = strtok(NULL, s);
     }
 	}
+*/
 }
