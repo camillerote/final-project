@@ -21,34 +21,48 @@ int getIntegerOfDay(char *day)
         dayIndexOfWeek = 0;
 
     else if ( strcmp( day, "monday" ) == 0 ) 
-        dayIndexOfWeek = 1;
+       dayIndexOfWeek = 1;
 
-	else if ( strcmp( day, "tuesday" )  == 0 ) 
-	    dayIndexOfWeek = 2;
+    else if ( strcmp( day, "tuesday" )  == 0 ) 
+       dayIndexOfWeek = 2;
 
-	else if ( strcmp( day, "wednesday" ) == 0 )
-	    dayIndexOfWeek = 3;
+    else if ( strcmp( day, "wednesday" ) == 0 )
+       dayIndexOfWeek = 3;
 
-	else if ( strcmp( day, "thursday" ) == 0 ) 
-	    dayIndexOfWeek = 4;
+    else if ( strcmp( day, "thursday" ) == 0 ) 
+       dayIndexOfWeek = 4;
 
-	else if ( strcmp( day, "friday" ) == 0 ) 
-	    dayIndexOfWeek = 5;
+    else if ( strcmp( day, "friday" ) == 0 ) 
+       dayIndexOfWeek = 5;
 	
-	else if ( strcmp( day, "saturday") == 0 ) 
-	    dayIndexOfWeek = 6;
+    else if ( strcmp( day, "saturday") == 0 ) 
+       dayIndexOfWeek = 6;
 
-        return dayIndexOfWeek;
+       return dayIndexOfWeek;
 }
 
-void printDay(int dayInt) {
-	if( dayInt==0 ) printf("Sunday \n --------\n");
-	if( dayInt==1 ) printf("Monday \n --------\n");
-	if( dayInt==2 ) printf("Tuesday \n --------\n");
-	if( dayInt==3 ) printf("Wednesday \n --------\n");
-	if( dayInt==4 ) printf("Thursday \n --------\n");
-	if( dayInt==5 ) printf("Friday \n --------\n");
-	if( dayInt==6 ) printf("Saturday \n --------\n");
+void printDay(int dayInt) 
+{	
+    if( dayInt==0 ) 
+       printf( "-------Sunday-------\n" );
+	
+    else if( dayInt==1 ) 
+       printf( "-------Monday-------\n");
+	
+    else if( dayInt==2 ) 
+       printf("-------Tuesday-------\n");
+
+    else if( dayInt==3 ) 
+       printf("-------Wednesday-------\n");
+
+    else if( dayInt==4 )
+       printf("-------Thursday-------\n");
+
+    else if( dayInt==5 ) 
+       printf( "-------Friday-------\n" );
+    
+    else if( dayInt==6 ) 
+       printf("-------Saturday-------\n");
 
 }
 
@@ -88,7 +102,7 @@ int requestDayOfWeek()
     return dayOfTheWeekIndex;
 }
 
-int runAgendaMaker(void) 
+/*int runAgendaMaker(void) 
 {
     // Local Variables
 
@@ -156,7 +170,7 @@ int runAgendaMaker(void)
 			} 
 	}
 	       
-		
+*/		
 			 
 			
 	
