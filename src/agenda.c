@@ -8,15 +8,37 @@
 /* FUNCTIONS */
 
 /* function to find day*/ 
-int getIntegerOfDay(char *day) {
-	if( strcmp(day, "sunday") == 0 ) return 0;
-	if( strcmp(day, "monday") == 0 ) return 1;
-	if( strcmp(day, "tuesday") == 0 ) return 2;
-	if( strcmp(day, "wednesday") == 0 ) return 3;
-	if( strcmp(day, "thursday") == 0 ) return 4;
-	if( strcmp(day, "friday") == 0 ) return 5;
-	if( strcmp(day, "saturday") == 0 ) return 6;
-	else return -1;
+
+int getIntegerOfDay(char *day) 
+{
+    // Local Variables
+
+    int dayIndexOfWeek = -1;    	// Assume index not found
+
+    // Compare user input to return day index of week - worry about case
+
+    if ( strcmp( day, "sunday" ) == 0 ) 
+        dayIndexOfWeek = 0;
+
+    else if ( strcmp( day, "monday" ) == 0 ) 
+        dayIndexOfWeek = 1;
+
+	else if ( strcmp( day, "tuesday" )  == 0 ) 
+	    dayIndexOfWeek = 2;
+
+	else if ( strcmp( day, "wednesday" ) == 0 )
+	    dayIndexOfWeek = 3;
+
+	else if ( strcmp( day, "thursday" ) == 0 ) 
+	    dayIndexOfWeek = 4;
+
+	else if ( strcmp( day, "friday" ) == 0 ) 
+	    dayIndexOfWeek = 5;
+	
+	else if ( strcmp( day, "saturday") == 0 ) 
+	    dayIndexOfWeek = 6;
+
+        return dayIndexOfWeek;
 }
 
 void printDay(int dayInt) {
@@ -29,33 +51,80 @@ void printDay(int dayInt) {
 	if( dayInt==6 ) printf("Saturday \n --------\n");
 
 }
-void printEvent(event name) {
-	printf("Time:%s\nDate:%s\nLocation:%s\nDescription:%s\n", name.time, name.date, name.location, name.description);
-	printf("This works");
+
+void printEvent( event name )
+{
+    printf( "       Time: %s\n", name.time );
+    printf( "       Date: %s\n", name.date );
+    printf( "   Location: %s\n", name.location );
+    printf( "Description: %s\n", name.description );
 }
 
-int runAgendaMaker(void) {
-	 dailyAgenda Agendas[7]; // each index here is day of week (0 is sunday)/
-        int forever = 1;
 
-        // Initialize the numOfEvents to make sure its set to 0/
-        // so ervetythign else works/
-        for(int i = 0; i<7; i++) {
-                Agendas[i].numOfEvents = 0;
-        }          
-	printf("Welcome to Agenda Maker,/n press 1 create event,/n 2 view event,\n  press 3 to exit.");
-	int selection;
+void displayEventMenu()
+{
+    printf( "----- Event Menu -----/n" );
+    printf( "\n"                       );
+    printf( "  1. Create event\n"      );
+    printf( "  2. Edit event\n"        );
+    printf( "  3. Display event\n"     );
+    printf( "  4. Exit application\n"  );
+}
+
+int requestDayOfWeek()
+{
+    // Local Variables
+
+    int dayOfTheWeekIndex = -1;
+
+    // Request day of the week index and validate 
+
+    while ( dayOfTheWeek < 0 || dayOfTheWeek > 6 )
+    {
+        printf( "What day are you interested (exp:Sunday-0): " );
+        scanf( "%d", dayOfTheWeekIndex );
+    }
+
+    return dayOfTheWeekIndex;
+}
+
+int runAgendaMaker(void) 
+{
+    // Local Variables
+
+    dailyAgenda agendas[ 7 ];    // Daily agenda for week (0-6 Sun-Sat)
+    int forever = 1;
+    int menuOption = 0;
+    char day[ 20 ];
+
+    // Initialize number of events for each day
+
+    for ( int i = 0; i < 7; i++ )
+    {
+        agendas[ i ].numOfEvents = 0;
+    }          
+
+    // Keep allowing user to enter menu options for the agenda
+
+    while ( forever )
+    {
+        // Display event menu
+
+        displayEventMenu();
 	
-	scanf("%d", &selection);
-	char day[20];
+        // Get user menu option
+
+	scanf( "%d", &menuOption );
 	
-	switch (selection){
-		case 1:
-		case 2: 
-			printf("What day are you interested in. \n");
-			scanf("%s", day);
+	switch ( menuOption )
+        {
+		case 1: createEvent();
+                        break;
+		case 2: editEvent();
+                        break;
+                case 3: displayEvent(); 
 			break;
-		case 3:
+		case 4:
 			return 0;
 		
 	}
@@ -82,8 +151,7 @@ int runAgendaMaker(void) {
 			break;
  
 		 case 2:
-			
-			for(int i=0; i<currentAgenda.numOfEvents; i++) {
+			for(int i=0; i<currentAgenda.numOfEvents; i++){
 				printEvent(currentAgenda.arrayEvent[i]);
 			} 
 	}

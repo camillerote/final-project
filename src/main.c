@@ -5,6 +5,6 @@
 #include "main.h"
 
 int main(void) {
-    runAgendaMaker();
+    runAgendaMaker();			
     return(SUCCESS);
 }
