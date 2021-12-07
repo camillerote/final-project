@@ -8,37 +8,57 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
-
+#include <stdbool.h>
 /* CONSTANTS */
 
-#define SIZE 256 /* size of string */
-#define MAX_EVENTS 10
-
-/* GLOBAL VARIABLES */
+#define SIZE 256 
+#define MAX_EVENTS 3
 
 /* DATA STRUCTURES */
 
-typedef struct Event {
-	char *time;           // hh:mm
-	char *date;           // mm-dd-yyyy
-	char *location;       // 1-many chars
-	char *description;    // 1-many chars
-} event;
+typedef struct Event
+{
+   int hour;
+   int minute;
+   int month;
+   int day;
+   int year;
 
-typedef struct agenda {
-        event arrayEvent[ MAX_EVENTS ];
+   char location[ SIZE ];
+   char description[ SIZE ];
 
-        int numOfEvents;
-} dailyAgenda;
-	
-/* FUNCTIONS */
+} event_struct;
 
-/* function to find day*/ 
+typedef struct DayAgenda
+{
+    event_struct dayEvents[ MAX_EVENTS ];
 
-int getIntegerOfDay( char *day );
+    int numberDayEvents;
 
-void printDay( int dayInt );
+} dayAgenda_struct;
 
-int runAgendaMaker();
+dayAgenda_struct weekEvents[ 7 ];
+
+/* Function prototypes */
+
+int getIntegerOfDay( char *day ); 
+
+void printDayOfWeek( int dayIndex );
+
+void printEvent( event_struct* anEvent );
+
+void printDailyAgenda( dayAgenda_struct dailyAgenda );
+
+void printWeeklyAgenda( int dayInt );
+
+void displayEventMenu();
+
+void displayDayEventsMenu( dayAgenda_struct* events );
+
+int requestDayOfWeek();
+ 
+int requestIntegerFromUser( char* prompt, int min, int max );
+
+event_struct* createEvent();
 
 #endif /* AGENDA_H */

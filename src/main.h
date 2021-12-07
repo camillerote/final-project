@@ -10,6 +10,7 @@
 #include <unistd.h>
 
 #include "agenda.h"
+#include <stdbool.h>
 
 #define SUCCESS 0
 

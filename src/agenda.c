@@ -1,79 +1,93 @@
 /*
  * agenda.c
  */
+
 #include "agenda.h"
 
-/* GLOBAL VARIABLES */
+/* Function prototypes */
 
-/* FUNCTIONS */
-
-/* function to find day*/ 
-
-int getIntegerOfDay(char *day) 
+int getIntegerOfDay( char *day ) 
 {
     // Local Variables
 
     int dayIndexOfWeek = -1;    	// Assume index not found
-
+    
     // Compare user input to return day index of week - worry about case
 
-    if ( strcmp( day, "sunday" ) == 0 ) 
+    if ( strcmp( day, "sunday" ) == 0 )
         dayIndexOfWeek = 0;
 
-    else if ( strcmp( day, "monday" ) == 0 ) 
+    else if ( strcmp( day, "monday" ) == 0 )
        dayIndexOfWeek = 1;
 
-    else if ( strcmp( day, "tuesday" )  == 0 ) 
+    else if ( strcmp( day, "tuesday" )  == 0 )
        dayIndexOfWeek = 2;
 
     else if ( strcmp( day, "wednesday" ) == 0 )
        dayIndexOfWeek = 3;
 
-    else if ( strcmp( day, "thursday" ) == 0 ) 
+    else if ( strcmp( day, "thursday" ) == 0 )
        dayIndexOfWeek = 4;
 
-    else if ( strcmp( day, "friday" ) == 0 ) 
+    else if ( strcmp( day, "friday" ) == 0 )
        dayIndexOfWeek = 5;
-	
-    else if ( strcmp( day, "saturday") == 0 ) 
+
+    else if ( strcmp( day, "saturday") == 0 )
        dayIndexOfWeek = 6;
 
-       return dayIndexOfWeek;
+    return dayIndexOfWeek;
 }
 
-void printDay(int dayInt) 
+void printDayOfWeek( int dayIndexOfWeek )
 {	
-    if( dayInt==0 ) 
+    if ( dayIndexOfWeek == 0 )
        printf( "-------Sunday-------\n" );
 	
-    else if( dayInt==1 ) 
-       printf( "-------Monday-------\n");
+    else if ( dayIndexOfWeek == 1 ) 
+       printf( "-------Monday-------\n" );
 	
-    else if( dayInt==2 ) 
-       printf("-------Tuesday-------\n");
+    else if ( dayIndexOfWeek == 2 ) 
+       printf( "-------Tuesday-------\n" );
 
-    else if( dayInt==3 ) 
-       printf("-------Wednesday-------\n");
+    else if ( dayIndexOfWeek == 3 )
+       printf( "-------Wednesday-------\n" );
 
-    else if( dayInt==4 )
-       printf("-------Thursday-------\n");
+    else if ( dayIndexOfWeek == 4 )
+       printf( "-------Thursday-------\n" );
 
-    else if( dayInt==5 ) 
+    else if ( dayIndexOfWeek == 5 )
        printf( "-------Friday-------\n" );
     
-    else if( dayInt==6 ) 
+    else   //  if ( dayIntOfWeek == 6 ) 
        printf("-------Saturday-------\n");
-
 }
 
-void printEvent( event name )
+void printEvent( event_struct* anEvent )
 {
-    printf( "       Time: %s\n", name.time );
-    printf( "       Date: %s\n", name.date );
-    printf( "   Location: %s\n", name.location );
-    printf( "Description: %s\n", name.description );
+    printf( "       Time: %d:%d\n",    anEvent->hour, anEvent->minute );
+    printf( "       Date: %d/%d/%d\n", anEvent->month, 
+                                       anEvent->day, anEvent->year );
+    printf( "   Location: %s\n",       anEvent->location    );
+    printf( "Description: %s\n",       anEvent->description );
 }
 
+void printDailyAgenda( dayAgenda_struct dailyAgenda )
+{	
+    for ( int i = 0; i < dailyAgenda->numberDayEvents; i++ )
+    {
+        printDayOfWeek( i );
+        printEvent( dayAgenda_struct[ i ] );
+        printf( "\n" );
+    }
+}
+
+void printWeeklyAgenda( int dayIndexOfWeek )
+{	
+    for ( int i = 0; i < 7; i++ )
+    {
+        printDailyAgenda( weekEvents[ i ]  );
+    }
+}
 
 void displayEventMenu()
 {
@@ -85,189 +99,111 @@ void displayEventMenu()
     printf( "  4. Exit application\n"  );
 }
 
+void displayDayEventsMenu( dayAgenda_struct* dayPtr )
+{
+    printf( "----- Day Events Menu -----\n" );
+    printf( "\n"                       );
+
+    for ( int i = 0; i < dayPtr->numberDayEvents; i++ )
+    {
+        //if ( /* there is an event for this index */ )
+           printEvent( dayPtr->dayEvents[ i ] );
+    }
+}
+
 int requestDayOfWeek()
 {
     // Local Variables
 
     int dayOfTheWeekIndex = -1;
+    bool validInput = false;     // Assume invalid input
 
     // Request day of the week index and validate 
 
-    while ( dayOfTheWeek < 0 || dayOfTheWeek > 6 )
+    while ( !validInput )
     {
+        // Valid is 0-6
+
         printf( "What day are you interested (exp:Sunday-0): " );
         scanf( "%d", dayOfTheWeekIndex );
+
+        // Verify so user receives errror message
+
+        if ( dayOfTheWeekIndex >= 0 && dayOfTheWeekIndex <= 6 )
+           validInput = true;
+        else
+           printf( "Invalid day of the weeks, only 0-6 is valid!" );
     }
 
     return dayOfTheWeekIndex;
 }
-
-/*int runAgendaMaker(void) 
+ 
+int requestIntegerFromUser( char* prompt, int min, int max )
 {
     // Local Variables
 
-    dailyAgenda agendas[ 7 ];    // Daily agenda for week (0-6 Sun-Sat)
-    int forever = 1;
-    int menuOption = 0;
-    char day[ 20 ];
+    int  number = 0;
+    bool validInput = false;     // Assume invalid input
 
-    // Initialize number of events for each day
+    // Request valid integer from user
 
-    for ( int i = 0; i < 7; i++ )
+    while ( !validInput )
     {
-        agendas[ i ].numOfEvents = 0;
-    }          
+        printf( prompt );
+        scanf( "%s", number );
 
-    // Keep allowing user to enter menu options for the agenda
-
-    while ( forever )
-    {
-        // Display event menu
-
-        displayEventMenu();
-	
-        // Get user menu option
-
-	scanf( "%d", &menuOption );
-	
-	switch ( menuOption )
-        {
-		case 1: createEvent();
-                        break;
-		case 2: editEvent();
-                        break;
-                case 3: displayEvent(); 
-			break;
-		case 4:
-			return 0;
-		
-	}
-	printf("got here");
-	int currentday = getIntegerOfDay(day);
-	dailyAgenda currentAgenda = Agendas[currentday]; 
-	printf("Press 1 to add event,\n 2 to view events,\n 3 to delete event.\n");
-	switch (selection){
-		case 1:{
-			event newEvent;
-			char time[SIZE];
-			char date[SIZE];
-			char location[SIZE];
-			char description[SIZE];
-			printf("Time:\n");
-			scanf("%s", time);
-			printf("Date:\n");
-			scanf("%s", date);
-			printf("Loaction:\n");
-			scanf("%s", location);
-			printf("Description:\n");
-			scanf("%[^\n]%*c", description);
-			}
-			break;
- 
-		 case 2:
-			for(int i=0; i<currentAgenda.numOfEvents; i++){
-				printEvent(currentAgenda.arrayEvent[i]);
-			} 
-	}
-	       
-*/		
-			 
-			
-	
-	/*dailyAgenda Agendas[7]; // each index here is day of week (0 is sunday)/
-	int forever = 1;
-
-	// Initialize the numOfEvents to make sure its set to 0/
-	// so ervetythign else works/
-	//for(int i = 0; i<7; i++) {
-	//	Agendas[i].numOfEvents = 0;
-	//}
-
-	//while(forever) {
-		printf("\e[0;33m \n> \e[0;37m");
-		char *userInput = (char *) malloc(SIZE * sizeof(char));
-		char *token
-		const char *s = " ";
-		char *name = malloc(SIZE * sizeof(char));
-
-        scanf("%[^\n]%*c", userInput);
-		
-		token = (char *) strtok(userInput, s);
-        while (token != NULL) {
-
-
-
-		* get the first token */
-
-		/* strcmp returns 0 if the two inputs are a match */
-
-        /* HELP */
-        /* CMD)monday]buy food */
-	/*	if( strcmp(token, "help") == 0 ) {
- 			printf("add [day] [event] , Add event to day\n");
-			printf("show [day/'all'] , show all the events for selected day, or for 'all'");
-			printf("edit [day] [eventNumber] [task], edit a day's event indexed by eventNumber "); 	
-	    }
-
-       */ /* ADD *//*
-	    if( strcmp(token, "add") == 0 ) {
-	    	char *day = strtok(NULL, s); // grab second arg
-	    	char *task = strtok(NULL, s); // grab 3rd arg (but its a single word, woops)
-    		int dayInt = getIntegerOfDay(day); // encodes our day to a number, use for indexing
-		
-    		if(dayInt == -1){
-    			printf("\n Entered invalid day");
-    			continue;
-            }
-
-    	    // This day has numOfEvents events
-    	    int numOfEvents = Agendas[dayInt].numOfEvents;
-	
-    	    if (numOfEvents > 9){ 
-    	    	printf("Too many events on day %s", day);
-    	    	continue;
-    	    }
-
-    	    // We want to write our new task to the next open spot, which is index numOfEvents
-    	    strcpy(Agendas[dayInt].events[numOfEvents], task);
-
-    	    // Make sure we increase the numOfEvents of this specific day
-    	    // so we dont overwrite it when we add another task to this day
-    	    Agendas[dayInt].numOfEvents++;
-    	    printf("New task: %s\n", Agendas[dayInt].events[numOfEvents]);
-        }
-    
-        *//* SHOW 
-	    if( strcmp(token, "show") == 0){
-	    	char *day = strtok(NULL, s);
-	    	int dayInt = getIntegerOfDay(day); // encodes our day to a number, use for indexing
-
-             ALL */
-    	/*	if( strcmp(day, "all") == 0){
-
-    			// Print out every single day and all their events
-    			for(int i=0; i<7; i++){ // Day loop
-    				printDay(i);
-    				for(int j=0; j < Agendas[i].numOfEvents; j++){ // Event loop
-    					printf("%d : %s\n", j+1, Agendas[i].events[j] );
-    				}
-    				printf("\n");
-    			}
-    			continue;
-    		}	
-
-    		if(dayInt == -1){
-    			printf("\n Entered invalid day");
-    			continue;
-    		}
-
-    		// print the events for this day
-    		for( int i = 0; i < Agendas[dayInt].numOfEvents; i++){
-    			printf("%s\n", Agendas[dayInt].events[i] );
-    		}	
-        }
-    token = strtok(NULL, s);
+        if ( number >= min && number <= max )
+           validInput = true;
+        else
+           printf( "Invalid input -- must be in range [%d-%d]", min, max );
     }
-	}
-*/
+
+    return number;
 }
+
+event_struct* createEvent()
+{
+    // Local Variables
+
+    event_struct* newEvent;
+
+    // Allocate memory for the event structure
+
+    newEvent = (event_struct) malloc( sizeof( event_struct ) ); 
+
+    // Request time from user
+
+    printf( "------------ Time format hh:mm --------------\n" );
+    newEvent->hour   = requestIntegerFromUser( "Enter hour [0-23]: ",   0, 23 );
+    newEvent->minute = requestIntegerFromUser( "Enter minute [0:59]: ", 0, 59 );
+
+    // Request Date from user
+
+    printf( "------------ Date format mm:dd:yy -----------\n" ); 
+    newEvent->month  = requestIntegerFromUser( "Enter month [1-12]: ",   1, 12 );
+    newEvent->minute = requestIntegerFromUser( "Enter day [1-31]: ",     1, 31 );
+    newEvent->year   = requestIntegerFromUser( "Enter year [1-31]: ",     1, 31 );
+
+    // Request location from user
+
+    printf( "Location: " );
+    scanf( "%[^\n]%*c", newEvent->location );
+
+    // Request description from user
+ 
+    printf( "Description: " );
+    scanf( "%[^\n]%*c", newEvent->description );
+
+    return newEvent;
+}
+
+void deleteEvent()
+{
+
+}
+
+void editEvent()
+{
+
+}
+
