@@ -62,21 +62,21 @@ void printDayOfWeek( int dayIndexOfWeek )
        printf("-------Saturday-------\n");
 }
 
-void printEvent( event_struct* anEvent )
+void printEvent( event_struct event )
 {
-    printf( "       Time: %d:%d\n",    anEvent->hour, anEvent->minute );
-    printf( "       Date: %d/%d/%d\n", anEvent->month, 
-                                       anEvent->day, anEvent->year );
-    printf( "   Location: %s\n",       anEvent->location    );
-    printf( "Description: %s\n",       anEvent->description );
+    printf( "       Time: %d:%d\n",    event.hour, event.minute );
+    printf( "       Date: %d/%d/%d\n", event.month, 
+                                       event.day, event.year );
+    printf( "   Location: %s\n",       event.location    );
+    printf( "Description: %s\n",       event.description );
 }
 
 void printDailyAgenda( dayAgenda_struct dailyAgenda )
 {	
-    for ( int i = 0; i < dailyAgenda->numberDayEvents; i++ )
+    for ( int i = 0; i < dailyAgenda.numberDayEvents; i++ )
     {
         printDayOfWeek( i );
-        printEvent( dayAgenda_struct[ i ] );
+        printEvent( dailyAgenda.dayEvents[ i ] );
         printf( "\n" );
     }
 }
@@ -125,7 +125,7 @@ int requestDayOfWeek()
         // Valid is 0-6
 
         printf( "What day are you interested (exp:Sunday-0): " );
-        scanf( "%d", dayOfTheWeekIndex );
+        scanf( "%d", &dayOfTheWeekIndex );
 
         // Verify so user receives errror message
 
@@ -149,8 +149,8 @@ int requestIntegerFromUser( char* prompt, int min, int max )
 
     while ( !validInput )
     {
-        printf( prompt );
-        scanf( "%s", number );
+        printf( "%s: ", prompt );
+        scanf( "%d", &number );
 
         if ( number >= min && number <= max )
            validInput = true;
@@ -165,11 +165,11 @@ event_struct* createEvent()
 {
     // Local Variables
 
-    event_struct* newEvent;
+    //event_struct* newEvent;
 
     // Allocate memory for the event structure
 
-    newEvent = (event_struct) malloc( sizeof( event_struct ) ); 
+    event_struct *newEvent = malloc( sizeof( event_struct ) ); 
 
     // Request time from user
 

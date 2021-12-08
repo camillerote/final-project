@@ -10,21 +10,24 @@ int main( void )
 {
     // Local Variables
 
-    dailyAgenda agendas[ 7 ];    // Daily agenda for week (0-6 Sun-Sat)
+    dayAgenda_struct agendas[ 7 ];    // Daily agenda for week (0-6 Sun-Sat)
     bool done = false;           // Assume user not done
     int menuOption = 0;
     char day[ 20 ];
 
-    event* anEvent;
+    event_struct event;
+    event_struct* anEvent;
 
     anEvent = createEvent();
 
-    printEvent( anEvent );
+    //event = anEvent;
+
+    printEvent( event );
     // Initialize number of events for each day
-/*
+
     for ( int i = 0; i < 7; i++ )
     {
-        agendas[ i ].numOfEvents = 0;
+        agendas[ i ]->numOfEvents = 0;
     }          
 
     // Keep allowing user to enter menu options for the agenda
@@ -41,8 +44,8 @@ int main( void )
 	
 	switch ( menuOption )
         {
-	   case 1: agendaIndex++;
-                   agenda[ agendaIndex ] = createEvent();
+	   case 1: dayIndex++;
+                   agenda[ dayIndex ] = createEvent();
 	           break;
 
            case 2: editEvent();

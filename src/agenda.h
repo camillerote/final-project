@@ -45,7 +45,7 @@ int getIntegerOfDay( char *day );
 
 void printDayOfWeek( int dayIndex );
 
-void printEvent( event_struct* anEvent );
+void printEvent( event_struct event );
 
 void printDailyAgenda( dayAgenda_struct dailyAgenda );
 
@@ -53,7 +53,7 @@ void printWeeklyAgenda( int dayInt );
 
 void displayEventMenu();
 
-void displayDayEventsMenu( dayAgenda_struct* events );
+void displayDayEventsMenu( dayAgenda_struct* dayEvents );
 
 int requestDayOfWeek();
  
