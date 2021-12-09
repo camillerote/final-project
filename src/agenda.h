@@ -9,10 +9,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
+
 /* CONSTANTS */
 
 #define SIZE 256 
 #define MAX_EVENTS 3
+#define WEEK_EVENTS_LENGTH 7
 
 /* DATA STRUCTURES */
 
@@ -24,22 +26,21 @@ typedef struct Event
    int day;
    int year;
 
-   char location[ SIZE ];
-   char description[ SIZE ];
+   char *location;
+   char *description;
 
 } event_struct;
 
 typedef struct DayAgenda
 {
     event_struct dayEvents[ MAX_EVENTS ];
-
     int numberDayEvents;
 
 } dayAgenda_struct;
 
-dayAgenda_struct weekEvents[ 7 ];
-
 /* Function prototypes */
+
+void agendaRunner(void);
 
 int getIntegerOfDay( char *day ); 
 

@@ -4,7 +4,109 @@
 
 #include "agenda.h"
 
+/* GLOBAL VARIABLES */
+dayAgenda_struct weekEvents[WEEK_EVENTS_LENGTH];
+
 /* Function prototypes */
+
+void agendaRunner(void) {
+
+    // Local Variables
+
+    dayAgenda_struct agendas[WEEK_EVENTS_LENGTH];    // Daily agenda for week (0-6 Sun-Sat)
+    bool done = false;           // Assume user not done
+    int menuOption = 0;
+    char day[ 20 ];
+
+    event_struct event;
+    event_struct* anEvent;
+
+   /* initialize weekEvents */
+for (int i=0; i< WEEK_EVENTS_LENGTH; i++) {
+
+    dayAgenda_struct das;
+
+    event_struct dayEvents[MAX_EVENTS];
+
+    for (int j=0; j<MAX_EVENTS; j++) {
+        event_struct es;
+        es.hour = 24;
+        // es.location = (char *) malloc(SIZE * sizeof(char));
+        es.location = "TEST TEST TEST";
+
+        dayEvents[j] = es;
+
+    }
+    weekEvents[i] = das;
+}
+
+for (int i=0; i< WEEK_EVENTS_LENGTH; i++) {
+    dayAgenda_struct das = weekEvents[i];
+
+    event_struct dayEvents[MAX_EVENTS];
+
+    for (int j=0; j<MAX_EVENTS; j++) {
+        event_struct es = dayEvents[j];
+
+        printf("(%d,%d) event_struct.hour = %d; event_struct.location = %s\n", i,j,es.hour,es.location);
+
+    }
+    weekEvents[i] = das;
+}
+
+
+    anEvent = createEvent();
+/*
+    //event = anEvent;
+
+    printEvent( event );
+    // Initialize number of events for each day
+
+    for ( int i = 0; i < 7; i++ )
+    {
+        agendas[i].numberDayEvents = 0;
+    }          
+
+    // Keep allowing user to enter menu options for the agenda
+
+   int dayIndex = 0;
+
+   while ( !done )
+   {
+      // Display event menu
+      displayEventMenu();
+
+      // Get user menu option
+      scanf( "%d", &menuOption );
+	
+      switch ( menuOption )
+      {
+         case 1:
+            dayIndex++;
+            agendas[dayIndex] = createEvent();
+            break;
+
+         case 2:
+            editEvent();
+            break;
+   
+         case 3:
+            deleteEvent(); 
+            break;
+         
+         case 4:
+            printEvent(); 
+            break;
+         
+         case 5:
+            done = true;     // Exit application
+            break;
+         
+         default: printf( "Invalid menu option: valid 1-5!" );
+      }
+   }
+*/
+}
 
 int getIntegerOfDay( char *day ) 
 {
@@ -169,7 +271,7 @@ event_struct* createEvent()
 
     // Allocate memory for the event structure
 
-    event_struct *newEvent = malloc( sizeof( event_struct ) ); 
+    event_struct *newEvent = (event_struct *) malloc( 1 * sizeof( event_struct ) ); 
 
     // Request time from user
 
