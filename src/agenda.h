@@ -60,6 +60,10 @@ int requestDayOfWeek();
  
 int requestIntegerFromUser( char* prompt, int min, int max );
 
-event_struct* createEvent();
+void createEvent( event_struct* newEvent );
+
+void editEvent(event_struct eEvent);
+
+void deleteEvent(event_struct xEvent);
 
 #endif /* AGENDA_H */

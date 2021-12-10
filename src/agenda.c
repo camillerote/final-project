@@ -55,8 +55,8 @@ for (int i=0; i< WEEK_EVENTS_LENGTH; i++) {
 }
 
 
-    anEvent = createEvent();
-/*
+    //anEvent = createEvent();
+
     //event = anEvent;
 
     printEvent( event );
@@ -83,19 +83,20 @@ for (int i=0; i< WEEK_EVENTS_LENGTH; i++) {
       {
          case 1:
             dayIndex++;
-            agendas[dayIndex] = createEvent();
+            event_struct *newEvent = (event_struct *) malloc(1 * sizeof( event_struct ));
+            agendas[dayIndex] = createEvent( &newEvent );
             break;
 
          case 2:
-            editEvent();
+            editEvent(anEvent);
             break;
    
          case 3:
-            deleteEvent(); 
+            deleteEvent(anEvent); 
             break;
          
          case 4:
-            printEvent(); 
+            printEvent(anEvent); 
             break;
          
          case 5:
@@ -105,7 +106,7 @@ for (int i=0; i< WEEK_EVENTS_LENGTH; i++) {
          default: printf( "Invalid menu option: valid 1-5!" );
       }
    }
-*/
+
 }
 
 int getIntegerOfDay( char *day ) 
@@ -263,7 +264,7 @@ int requestIntegerFromUser( char* prompt, int min, int max )
     return number;
 }
 
-event_struct* createEvent()
+void createEvent( event_struct* newEvent )
 {
     // Local Variables
 
@@ -271,7 +272,7 @@ event_struct* createEvent()
 
     // Allocate memory for the event structure
 
-    event_struct *newEvent = (event_struct *) malloc( 1 * sizeof( event_struct ) ); 
+  //  event_struct *newEvent = (event_struct *) malloc( 1 * sizeof( event_struct ) ); 
 
     // Request time from user
 
@@ -296,16 +297,16 @@ event_struct* createEvent()
     printf( "Description: " );
     scanf( "%[^\n]%*c", newEvent->description );
 
-    return newEvent;
+    return &newEvent;
 }
 
-void deleteEvent()
+void deleteEvent( event_struct event )
 {
-
+    printf("entering delete event function\n");
 }
 
-void editEvent()
+void editEvent( event_struct event )
 {
-
+    printf("entering edit event function\n");
 }
 
