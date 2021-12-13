@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <ctype.h>
 
 /* CONSTANTS */
 
@@ -18,19 +19,22 @@
 
 /* DATA STRUCTURES */
 
+//Structure to hold information about a single event
 typedef struct Event
 {
-   int hour;
-   int minute;
-   int month;
-   int day;
-   int year;
+    int hour;
+    int minute;
+    int month;
+    int day;
+    int year;
 
-   char *location;
-   char *description;
+    char location[100];
+    char description[200];
 
 } event_struct;
 
+
+//Structure to hold 3 single events that represent a day
 typedef struct DayAgenda
 {
     event_struct dayEvents[ MAX_EVENTS ];
@@ -42,28 +46,34 @@ typedef struct DayAgenda
 
 void agendaRunner(void);
 
-int getIntegerOfDay( char *day ); 
-
-void printDayOfWeek( int dayIndex );
-
-void printEvent( event_struct event );
-
-void printDailyAgenda( dayAgenda_struct dailyAgenda );
-
-void printWeeklyAgenda( int dayInt );
+void initialAgendaDefault(dayAgenda_struct []);
 
 void displayEventMenu();
 
-void displayDayEventsMenu( dayAgenda_struct* dayEvents );
+void createEvent( dayAgenda_struct* newEvent, int choice);
 
-int requestDayOfWeek();
- 
 int requestIntegerFromUser( char* prompt, int min, int max );
 
-void createEvent( event_struct* newEvent );
+int getIntegerOfDay( char *day );
 
-void editEvent(event_struct eEvent);
+int getDayOfWeek(void);
 
-void deleteEvent(event_struct xEvent);
+void lowerCase(char *day);
+
+void printDayOfWeek( int dayIndex );
+
+void printWeeklyAgenda( dayAgenda_struct agendas[]);
+
+void printEvent( event_struct event );
+
+void printDailyAgenda(dayAgenda_struct agendas[], int day);
+
+void editEvent(event_struct *event);
+
+void partialEditEvent(event_struct *event);
+
+void fullEditEvent(event_struct *event);
+
+void deleteEvent(event_struct *event);
 
 #endif /* AGENDA_H */
