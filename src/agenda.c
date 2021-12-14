@@ -168,13 +168,13 @@ void initialAgendaDefault(dayAgenda_struct agendas[])
 void createEvent( dayAgenda_struct* newEvent, int choice )
 {
     char str[200];
-    printf( "\n------------ Time format hh:mm --------------\n" );
+    printf( "\n------------ Time format --------------\n" );
     newEvent->dayEvents[choice].hour = requestIntegerFromUser( "Enter hour [0-23]: ",   0, 23 );
     newEvent->dayEvents[choice].minute = requestIntegerFromUser( "Enter minute [0-59]: ", 0, 59 );
 
     // Request Date from user
 
-    printf( "\n------------ Date format mm:dd:yy -----------\n" );
+    printf( "\n------------ Date format -----------\n" );
     newEvent->dayEvents[choice].month  = requestIntegerFromUser( "Enter month [1-12]: ",   1, 12 );
     newEvent->dayEvents[choice].minute = requestIntegerFromUser( "Enter day [1-31]: ",     1, 31 );
     newEvent->dayEvents[choice].year   = requestIntegerFromUser( "Enter year [2021 - 2025]: ",  2021, 2025 );
