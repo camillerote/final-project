@@ -77,7 +77,7 @@ void agendaRunner(void)
             deleteEvent(&agendas[dayOfWeek].dayEvents[choice-1]);
             break;
 
-        case 4: //display the information of a single event, events in a day or all events
+       case 4: //display the information of a single event, events in a day or all events
             // in a week, user chooses an option
             printf("\t1. Print Single Event\n"
                    "\t2. Print Day Events\n"
@@ -86,38 +86,39 @@ void agendaRunner(void)
 
             switch(choice)
             {
-            case 1: //display a single event in a particular day
-                dayOfWeek = getDayOfWeek( );
 
-                if(dayOfWeek == -1)
-                {
-                    printf("\t\nERROR: Invalid day of week entered. Try again!\n\a");
+                case 1: //display a single event in a particular day
+                    dayOfWeek = getDayOfWeek( );
+
+                    if(dayOfWeek == -1)
+                    {
+                        printf("\t\nERROR: Invalid day of week entered. Try again!\n\a");
+                        break;
+                    }
+
+                    choice = requestIntegerFromUser( "Enter event [1-3]: ",   1, 3 );
+
+                    printEvent(agendas[dayOfWeek].dayEvents[choice-1]);
+
                     break;
-                }
+                case 2://display the events in a particular day
+                    dayOfWeek = getDayOfWeek( );
 
-                choice = requestIntegerFromUser( "Enter event [1-3]: ",   1, 3 );
+                    if(dayOfWeek == -1)
+                    {
+                        printf("\t\nERROR: Invalid day of week entered. Try again!\n\a");
+                        break;
+                    }
 
-                printEvent(agendas[dayOfWeek].dayEvents[choice-1]);
-
-                break;
-            case 2://display the events in a particular day
-                dayOfWeek = getDayOfWeek( );
-
-                if(dayOfWeek == -1)
-                {
-                    printf("\t\nERROR: Invalid day of week entered. Try again!\n\a");
+                    printDailyAgenda(agendas, dayOfWeek);
                     break;
-                }
+                case 3: //display all events in a week
+                    printWeeklyAgenda(agendas);
+                    break;
+           }
+           break;
 
-                printDailyAgenda(agendas, dayOfWeek);
-                break;
-            case 3: //display all events in a week
-                printWeeklyAgenda(agendas);
-                break;
-            }
-            break;
-
-        case 5: //end of editing the agenda
+       case 5: //end of editing the agenda
             printf("\n\t\tGoodbye!\n\n");
             done = true;
             break;
@@ -132,7 +133,7 @@ void agendaRunner(void)
 
 
 
-
+//displays event menu
 void displayEventMenu()
 {
     printf( "\n\n\t\t----- Event Menu -----\n" );
@@ -179,15 +180,14 @@ void createEvent( dayAgenda_struct* newEvent, int choice )
     newEvent->dayEvents[choice].year   = requestIntegerFromUser( "Enter year [2021 - 2025]: ",  2021, 2025 );
 
     // Request location from user
-    fflush(stdin);
-    printf( "Location: " );
-    fgets(str, 99, stdin );
+    gets();
+    printf( "Location[input less than 100 characters]: " );
+    fgets(str, 99, stdin);
     strcpy(newEvent->dayEvents[choice].location, str);
 
     // Request description from user
-    fflush(stdin);
-    printf( "Description: " );
-    fgets(str, 199, stdin );
+    printf( "Description:[input less than 200 characters] " );
+    fgets(str, 199, stdin);
     strcpy(newEvent->dayEvents[choice].description, str);
 
 }
@@ -253,7 +253,7 @@ int getDayOfWeek(void)
 {
     char userDay[10];
     int dayOfWeek;
-    printf("Enter day of the week (Sunday - Friday): ");
+    printf("Enter day of the week (Sunday - Saturday): ");
     scanf("%s19", userDay);
 
     lowerCase(userDay);
@@ -378,13 +378,13 @@ void partialEditEvent(event_struct *event)
             event->year   = requestIntegerFromUser( "Enter year [2021 - 2025]: ",  2021, 2025 );
             break;
         case 3:
-            fflush(stdin);
+            gets();
             printf( "\n------------ Edit Location -----------\n" );
             fgets(str, 99, stdin );
             strcpy(event->location, str);
             break;
         case 4:
-            fflush(stdin);
+            gets();
             printf( "\n------------ Edit Description -----------\n" );
             fgets(str, 199, stdin );
             strcpy(event->description, str);
@@ -417,13 +417,13 @@ void fullEditEvent(event_struct *event)
     event->year   = requestIntegerFromUser( "Enter year [2021 - 2025]: ",  2021, 2025 );
 
     // Request location from user
-    fflush(stdin);
+    gets();
     printf( "Location: " );
     fgets(str, 99, stdin );
     strcpy(event->location, str);
 
     // Request description from user
-    fflush(stdin);
+
     printf( "Description: " );
     fgets(str, 199, stdin );
     strcpy(event->description, str);
