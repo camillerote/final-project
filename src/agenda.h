@@ -44,36 +44,36 @@ typedef struct DayAgenda
 
 /* Function prototypes */
 
-void agendaRunner(void);
+void agendaRunner(void); // Camille - Anika we worked on it together since the large switch staement included both of our parts
 
-void initialAgendaDefault(dayAgenda_struct []);
+void initialAgendaDefault(dayAgenda_struct []); //Camille
 
-void displayEventMenu();
+void displayEventMenu(); //Anika
 
-void createEvent( dayAgenda_struct* newEvent, int choice);
+void createEvent( dayAgenda_struct* newEvent, int choice);// Camille
 
-int requestIntegerFromUser( char* prompt, int min, int max );
+int requestIntegerFromUser( char* prompt, int min, int max ); //Camille 
 
-int getIntegerOfDay( char *day );
+int getIntegerOfDay( char *day ); //Camille 
 
-int getDayOfWeek(void);
+int getDayOfWeek(void); //Camille 
 
-void lowerCase(char *day);
+void lowerCase(char *day); //Camille 
 
-void printDayOfWeek( int dayIndex );
+void printDayOfWeek( int dayIndex ); //Anika
 
-void printWeeklyAgenda( dayAgenda_struct agendas[]);
+void printWeeklyAgenda( dayAgenda_struct agendas[]); //Anika
 
-void printEvent( event_struct event );
+void printEvent( event_struct event );  //Camille 
 
-void printDailyAgenda(dayAgenda_struct agendas[], int day);
+void printDailyAgenda(dayAgenda_struct agendas[], int day); //Anika  
 
-void editEvent(event_struct *event);
+void editEvent(event_struct *event); //Camille 
 
-void partialEditEvent(event_struct *event);
+void partialEditEvent(event_struct *event); //Anika
 
-void fullEditEvent(event_struct *event);
+void fullEditEvent(event_struct *event); //Anika
 
-void deleteEvent(event_struct *event);
+void deleteEvent(event_struct *event); //Anika 
 
 #endif /* AGENDA_H */
